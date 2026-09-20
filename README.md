@@ -33,7 +33,7 @@ Below is a listing of options your can set....
 
 | Option | Value | Default Value | Description | Example |
 | --- | --- | --- | --- | --- |
-| wikiURL | String | "http://en.wikipedia.org/" | The base URL of the wiki you want to get data from with trailing slash included | wikiURL: "http://fallout.wikia.com/" |
+| wikiURL | String | "https://en.wikipedia.org/" | The base URL of the wiki you want to get data from with trailing slash included | wikiURL: "http://fallout.wikia.com/" |
 | apiPath | String | "w" | Any additional path needed to be added to properly get data from the API (no slashes). Wikipedia uses "w" but often this will be an empty string for other wikis. | wikiURL: "" |
 | page | String | "Jimi_Hendrix" | The name of the wiki page. | page: "Brazil" |
 | section | Integer or null | 0 | The section of the wiki you want to get data from. The entire page of content will be returned if section is set to null. | section: 4 |
@@ -41,3 +41,14 @@ Below is a listing of options your can set....
 | type | String | "all" | Possible values are "text", "blurb", "infobox", and "custom" | type: "infobox" |
 | customSelector | String | "" | If the type setting is set to "custom", then this is the selector that Wikiblurb will look for | customSelector: ".mw-class" |
 | callback | Function | function() { } | Callback that executes after data has been successfully loaded | function() { alert("Data loaded..."); } |
+
+### Development
+
+The plugin has no runtime dependencies. The test suite uses Node's built-in test runner (Node 18+):
+
+```bash
+npm ci
+npm test
+```
+
+The CI workflow (`.github/workflows/ci.yml`) runs the same commands on every push and pull request.

@@ -14,7 +14,7 @@
     $.fn.wikiblurb = function (options) {
 
         var defaults = $.extend({
-            wikiURL: "http://en.wikipedia.org/",
+            wikiURL: "https://en.wikipedia.org/",
             apiPath: 'w',
             section: 0,
             page: 'Jimi_Hendrix',
@@ -51,7 +51,7 @@
 
             addUnderscores: function(page) {
                 if(page.trim().indexOf(' ') !== -1) {
-                    page.replace(' ', '_');
+                    page = page.replace(/ /g, '_');
                 }
                 return page;
             },            
@@ -70,15 +70,20 @@
 
             initializeItems: function() {
                     
-                var page = methods.addUnderscores(settings.page), section;
-                
-                if(settings.section !== null) {
-                    section = "&section=" + settings.section
+                var page = methods.addUnderscores(settings.page);
+                var section = '';
+
+                if(settings.section !== null && settings.section !== undefined) {
+                    section = "&section=" + settings.section;
                 }
+
+                // wikiURL is documented with a trailing slash and apiPath with
+                // no slashes; normalize so the endpoint never gets a double slash.
+                var apiBase = settings.wikiURL.replace(/\/+$/, '') + '/' + (settings.apiPath ? settings.apiPath.replace(/^\/+|\/+$/g, '') + '/' : '');
 
                 $.ajax({
                     type: "GET",
-                    url: settings.wikiURL + settings.apiPath + "/api.php?action=parse&format=json&prop=text"+ section +"&page="+ page +"&callback=?",
+                    url: apiBase + "api.php?action=parse&format=json&prop=text"+ section +"&page="+ page +"&callback=?",
                     contentType: "application/json; charset=utf-8",
                     async: true,
                     dataType: "json",
@@ -174,7 +179,7 @@
         } else if (typeof options === 'object' || !options) { 	// $("#element").pluginName({ option: 1, option:2 });
             return methods.init.apply(this);  
         } else {
-            $.error( 'Method "' +  method + '" does not exist in wikiblurb plugin!');
+            $.error( 'Method "' +  options + '" does not exist in wikiblurb plugin!');
         }
     };
 

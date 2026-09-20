@@ -1,0 +1,24 @@
+{
+  "name": "wikiblurb",
+  "version": "1.0.2",
+  "description": "A jQuery plugin to pull sections of text from Wikipedia and other MediaWiki-based wikis.",
+  "main": "js/jquery.wikiblurb.js",
+  "files": [
+    "js/jquery.wikiblurb.js",
+    "css/style.css"
+  ],
+  "scripts": {
+    "test": "node --test"
+  },
+  "keywords": [
+    "jquery",
+    "jquery-plugin",
+    "wikipedia",
+    "wiki",
+    "mediawiki"
+  ],
+  "license": "MIT",
+  "engines": {
+    "node": ">=18"
+  }
+}
